@@ -5,14 +5,14 @@ import csv
 
 # configuration
 # capture_src = r"C:\Users\tomzh\Downloads\01\001.mkv"  # filename
-capture_src = 0  # 0 - built-in camera
-is_flipped = True  # recommended for camera
+capture_src = "001.mkv"  # 0 - built-in camera
+is_flipped = False  # recommended for camera
 number_feature_point = 75
 move_threshold = 1
 overflow_threshold = 20
 idle_status_threshold = 0.2
 status_history_depth = 3
-frame_interval = 10  # ms
+frame_interval = 1  # ms
 
 export_as_csv = False
 csv_filename = "sample.csv"
@@ -45,14 +45,16 @@ def main():
     f_csv = csv.writer(f)
     f_csv.writerow(["frame", "l1_diff_sum", "l1_has_corners", "l1_avg_x", "l1_avg_y", "l2_motion_state", "l2_delta_x",
                     "l2_delta_y", "l3_result"])
-    while ret:
+    while True:
         # break when press ESC
         if cv2.waitKey(frame_interval) & 0xff == 27:
             break
         camera.read()
         ret, current_frame = camera.read()
+        if not ret:
+            break
         # absolute difference
-        img = cv2.absdiff(current_frame, last_frame)
+        img=cv2.absdiff(current_frame,last_frame)
         # flip on x-axis
         if is_flipped:
             img = cv2.flip(img, 1)
