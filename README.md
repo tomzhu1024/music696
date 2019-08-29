@@ -14,7 +14,7 @@ Research repository
 
 ## 函数解释
 
-### word_sep(wav,rate,wpm,coef_valley=0.15,coef_top=0.3)
+### word_sep(wav,rate,wpm,coef_valley,coef_top)
 
 返回每个字的开始时间与结束时间
 
